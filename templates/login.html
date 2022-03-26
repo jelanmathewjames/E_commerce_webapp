@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#">
+</head>
+<body>
+    <div style="background-image:url('static/ecommercebackground.jpg'); height:610px;" class="col-lg-12 col-12">
+        <nav class="navbar navbar-expand-lg " style="background: rgb(25, 25, 145);">
+            <p class="navbar-brand" style="height:25px; font-weight:bolder;color:white">E-commerce</p>
+            <button class="navbar-toggler" style="color:blue;background:white;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+              <ul class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color:white;" id="sign">Sign Up</button>
+              </ul>
+            </div>
+        </nav>
+        <div class="col-lg-4 col-10 mx-auto" style="margin-top:30px; border-width:thick; border-radius:30px; height:450px; background:rgb(203, 147, 255); color:white;">
+            <form>
+                {% csrf_token %}
+                <div class="col-lg-8 col-8 ml-auto" style="font-size:30px; font-weight:bolder; padding-top:10px">
+                    <p>Log In</p>
+                </div>
+                <div style="margin-top: 50px;">
+                    <div class="form-group col-lg-8 col-8 mx-auto">
+                        <label id="warning"></label>
+                    </div>
+                    <div class="form-group col-lg-8 col-8 mx-auto">
+                        <label for="username">User Name</label>
+                        <input type="text" class="form-control" id="username" placeholder="User Name">
+                    </div>
+                    <div class="form-group col-lg-8 col-8 mx-auto">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="on">
+                    </div>
+                    <div class="mx-auto col-lg-2 col-6"style="margin-top:30px">
+                        <button type="button" class="btn btn-primary" id="btn1">Log In</button>
+                    </div>
+                </div>
+              </form>
+        </div>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        $('#sign').click(function(){
+            window.location.replace('signup')
+        })
+        $('#btn1').click(function(){
+            var username = $('#username').val()
+            var password = $('#password').val()
+            var data = {
+              'csrfmiddlewaretoken':'{{csrf_token}}',
+              'username': username,
+              'password': password,
+            }
+            if(username == ''){
+              var alert = 'User Name field cannot be empty'
+              $('#warning').text(alert)
+            }else if(password == ''){
+              var alert = 'Password field cannot be empty'
+              $('#warning').text(alert)
+            }else{
+              $.ajax({
+                url:'/log_in',
+                method:'POST',
+                data:data,
+                dataType:'json',
+                success:function(data){
+                  if(data.success){
+                    window.location.replace('/login_user')
+                  }else{
+                    var alert = 'User is Not Authenticated'
+                    $('#warning').text(alert)
+                  }
+                }
+              })
+            }
+        })
+    })
+</script>
+</body>
+</html>

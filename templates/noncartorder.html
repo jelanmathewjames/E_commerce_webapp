@@ -1,0 +1,355 @@
+{% load static %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>E-Commerce</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+      <!-- style css -->
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+      <!-- fevicon -->
+      <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+      <!-- loader  -->
+      <div class="loader_bg">
+         <div class="loader"><img src="{% static 'images/loading.gif' %}" alt="#" /></div>
+      </div>
+      <!-- end loader -->
+      <!-- header -->
+      <header>
+         <!-- header inner -->
+         <div  class="head_top">
+            <div class="header">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                           <div class="center-desk">
+                              <div class="logo">
+                                 <strong style="font-size: 25px;">E-Commerce</strong>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                           <span class="navbar-toggler-icon"></span>
+                           </button>
+                           <div class="collapse navbar-collapse" id="navbarsExample04">
+                              <div class="sign_btn"><a href="log_in">Log In</a></div>
+                              <div class="sign_btn" style="margin-left: 4px;"><a href="signup">Sign Up</a></div>
+                              <div class="sign_btn" ><a href="/cart" style="margin-left: 4px;">Cart \{{cart_item}}/</a></div>
+                              <div class="sign_btn" ><a href="" style="margin-left: 4px;">Order</a></div>
+                           </div>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- end header inner -->
+            <!-- end header -->
+            <!-- banner -->
+            <section class="banner_main">
+               <div class="container-fluid">
+                  <div class="row d_flex">
+                     <div class="col-md-5">
+                        <div class="text-bg">
+                           <h1>Omega's<br>E Commerce App</h1>
+                           <strong>Shop.... with Omega</strong>
+                           <span>Welcome </span>
+                        </div>
+                     </div>
+                     <div class="col-md-7 padding_right1">
+                        <div class="text-img">
+                           <figure><img src="{% static 'ecommercebackground.jpg' %}" alt="#"/></figure>
+                           <h3>01</h3>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+         </div>
+      </header>
+      <!-- end banner -->
+      <!-- about -->
+
+      <!-- about -->
+      <!-- best -->
+      <div id="" class="best">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Best Shopping Experience</h2>
+                     <p style="font-size:25px;">Make Order</p>
+                  </div>
+               </div>
+            </div>
+            <div >
+               <div>
+                  <table class="table">
+                     <thead class="thead-dark">
+                       <tr>
+                         <th scope="col">Product Name</th>
+                         <th scope="col">Quantity</th>
+                         <th scope="col">Price</th>
+                         <th scope="col">Total <br>(Quantity x Price)</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       {% for cart_details in cart_details %}
+                       <tr>
+                         <th scope="row">{{cart_details.Product_name}}</th>
+                         <td>{{cart_details.quantity}}</td>
+                         <td>{{ cart_details.varied_price|intdiv:cart_details.quantity }}</td>
+                         <td>{{cart_details.varied_price}}</td>
+                       </tr>
+                       {% endfor %}
+                     </tbody>
+                  </table>
+                  <p style="font-size: 25px; font-weight:bolder;">Subtotal : <span id="subtotal">{{subtotal}}</span></p>
+                  <br>
+                  <br>
+                  <br>
+               </div>
+               <div class="col-lg-12 col-12 mx-lg-auto">
+                  <p style="font-size:30px; font-weight:bolder;">Enter Details</p>
+                  <br>
+               </div>
+               <div class="float-left col-lg-6 col-12">
+                  <div>
+                     <label for="name">Name</label>
+                     <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                 </div>
+                 <div>
+                     <label for="phone_number">Phone Number</label>
+                     <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number">
+                 </div>
+                 <div>
+                     <label for="address">Home Address</label>
+                     <textarea type="text" class="form-control" id="address" name="address"placeholder="Home Address"></textarea>
+                 </div>
+                 <div>
+                     <label for="pincode">Pincode</label>
+                     <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Pincode">
+                 </div>
+               </div>
+               <div class="col-lg-6 col-12 float-left">
+                  <div>
+                     <label for="country">Country</label>
+                     <input type="text" class="form-control" id="country" name="country" placeholder="Country">
+                 </div>
+                 <div>
+                     <label for="state">State</label>
+                     <input type="text" class="form-control" id="state" name="state" placeholder="State">
+                 </div>
+                 <div>
+                     <label for="district">District</label>
+                     <input type="text" class="form-control" id="district" name="district" placeholder="District">
+                 </div>
+                 <div>
+                     <label for="town">Town</label>
+                     <input type="text" class="form-control" id="town" name="town" placeholder="Town">
+                 </div>
+                 <div class="form-group col-lg-6 col-12 mx-auto">
+                     <label id="warning1" name="warning1"></label>
+                 </div>
+                 <div class="form-check">
+                     <input type="checkbox" class="form-check-input" id="cod">
+                     <label class="form-check-label" for="cod">CASH ON DELIVERY (Free Delivery not available)</label>
+                 </div>
+                 <div id="paypal-button-container" class="col-lg-4 col-10 max-auto"></div>
+                 <div class="col-lg-2 col-6"style="margin-top:15px">
+                     <button type="submit" class="btn btn-primary" id="place_order" name="place_order">Place Order</button>
+                 </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <footer>
+         <div class="footer">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-6">
+                     <div class="cont">
+                        <h3> <strong class="multi">Experience The Feel of Online Shopping</strong><br>
+                        </h3>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="cont_call">
+                        <h3> <strong class="multi"></strong><br>
+                           For Enquiries Call 9999999999
+                        </h3>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+      <script src="{% static 'js/plugin.js' %}"></script>
+      <!-- sidebar -->
+      <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+      <script src="{% static 'js/custom.js' %}"></script>
+      <!-- Include the PayPal JavaScript SDK -->
+      <script src="https://www.paypal.com/sdk/js?client-id=AaxY5PgTPAqaj0NyTSb7sIOA06I-0StpdbQxH-ukf4aLitpfb4wo21JgfMxvZd4DQNula1AhnHRk8QAH&currency=USD"></script>
+      <script>
+         function checkdetails(){
+            var name = $('#name').val()
+            var phone_number = $('#phone_number').val()
+            var address = $('#address').val()
+            var pincode = $('#pincode').val()
+            var country = $('#country').val()
+            var state = $('#state').val()
+            var district = $('#district').val()
+            var town = $('#town').val()
+            check = true
+            flag = false
+            if(name == ''){
+               check = false
+               $('#warning1').text('Name field cannot be empty')
+            }else if(phone_number = ''){
+               check = false
+               $('#warning1').text('Phone Number field cannot be empty')
+            }else if(address == ''){
+               check = false
+               $('#warning1').text('Home Address field cannot be empty')
+            }else if(pincode == ''){
+               check = false
+               $('#warning1').text('Pincode field cannot be empty')
+            }else if(country == ''){
+               check = false
+               $('#warning1').text('Country field cannot be empty')
+            }else if(state == ''){
+               check = false
+               $('#warning1').text('State field cannot be empty')
+            }else if(district == ''){
+               check = false
+               $('#warning1').text('District field cannot be empty')
+            }else if(town == ''){
+               check = false
+               $('#warning1').text('Town field cannot be empty')
+            }else if($("#cod").prop("checked") == true){
+               flag = true
+            }
+         }
+         function placeorder(){
+            var name = $('#name').val()
+            var phone_number = $('#phone_number').val()
+            var address = $('#address').val()
+            var pincode = $('#pincode').val()
+            var country = $('#country').val()
+            var state = $('#state').val()
+            var district = $('#district').val()
+            var town = $('#town').val()
+            var data = {
+               'csrfmiddlewaretoken':'{{csrf_token}}',
+               'name':name,
+               'phone_number':phone_number,
+               'address':address,
+               'pincode':pincode,
+               'country':country,
+               'state':state,
+               'district':district,
+               'town':town,
+               'flag':flag
+            }
+            $.ajax({
+               url:'order',
+               method:'POST',
+               data:data,
+               dataType:'json',
+               success:function(data){
+                  if(data.success == 'True'){
+                     window.location.replace('login_user')
+                  }
+               }
+            })
+         }
+      </script>
+      <script>
+        // Render the PayPal button into #paypal-button-container
+        var subtotal = '{{subtotal}}'
+        paypal.Buttons({
+            // Set up the transaction
+            createOrder: function(data, actions) {
+               checkdetails()
+               if(check == true){
+                  if(flag == false){
+                     return actions.order.create({
+                        purchase_units: [{
+                           amount: {
+                              value: '55'
+                           }
+                        }]
+                     }); 
+                  }else{
+                     $('#warning1').text('Please Uncheck Cash On delivery')
+                  }
+               }
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction Successful');
+                    placeorder()
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+      </script>
+      <script>
+         $('#place_order').click(function(){
+            checkdetails()
+            if(check == true){
+               if(flag == true){
+                  placeorder()
+               }else{
+                  $('#warning1').text('Please Check Cash On delivery')
+               }
+            }
+         })
+      </script>
+   </body>
+</html>

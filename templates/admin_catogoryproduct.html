@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="shortcut icon" href="#">
+    <title>Document</title>
+</head>
+<body>
+    <div style="background-image:url('static/ecommercebackground.jpg'); height:auto;" class="col-lg-12 col-12">
+        <nav class="navbar navbar-expand-lg " style="background: rgb(25, 25, 145);">
+            <p class="navbar-brand" style="height:25px; font-weight:bolder;color:white">E-commerce</p>
+            <button class="navbar-toggler" style="color:blue;background:white;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+              <ul class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" style="color:white" id="product_data">Data of Product</button>
+              </ul>
+              <ul class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" style="color:white;" id="log_out">Log Out</button>
+              </ul>
+            </div>
+        </nav>
+        <div class="col-lg-4 col-10 mx-auto" style="margin-top:30px; border-width:thick; border-radius:30px; height:auto; background:rgb(203, 147, 255); color:white;">
+            <div class="col-lg-8 col-8 mx-auto" style="font-size:30px; font-weight:bolder; padding-top:10px">
+                <p>Create Product</p>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <div style="margin-top: 5px;">
+                    <div class="mx-auto col-lg-2 col-6"style="margin-top:15px">
+                        <button type="submit" class="btn btn-primary" id="btn2" name="btn2">Submit</button>
+                    </div>
+                </div>
+            </form>
+           
+                <div>
+                    <div class="col-lg-8 col-8 mx-auto" style="font-size:30px; font-weight:bolder; padding-top:10px">
+                        <p>Create Category</p>
+                    </div>
+                    <div class="form-group col-lg-8 col-8 mx-auto">
+                        <label id="warning1" name="warning1"></label>
+                    </div>
+                    <div class="form-group col-lg-8 col-8 mx-auto">
+                        <label for="category_name">Category Name</label>
+                        <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Category Name">
+                    </div>
+                    <div class="form-group col-lg-8 col-8 mx-auto">
+                        <label for="category_description">Category Description</label>
+                        <textarea type="text" class="form-control" id="category_description" name="category_description"placeholder="Category Description"></textarea>
+                    </div>
+                    <div class="mx-auto col-lg-2 col-6"style="margin-top:15px">
+                        <button type="submit" class="btn btn-primary" id="btn3" name="btn3">Submit</button>
+                    </div>
+                </div>
+           
+            <br>
+            <br>
+            <br>
+          
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+       $('#product_data').click(function(){
+           window.location.replace('admin_catprod_data')
+       })
+    })
+</script>
+</html>

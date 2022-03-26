@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'blood_data.css' %}" type="text/css">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#">
+</head>
+<body>
+    <div style="background-image:url('static/ecommercebackground.jpg'); height:auto;" class="col-lg-12 col-12">
+        <nav class="navbar navbar-expand-lg " style="background: rgb(25, 25, 145);">
+            <p class="navbar-brand" style="height:25px; font-weight:bolder;color:white">E-commerce</p>
+            <button class="navbar-toggler" style="color:blue;background:white;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+              <ul class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" style="color:white;" id="deleteupdate_product">Delete or Upadate Product</button>
+              </ul>
+              <ul class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" style="color:white;" id="logout">Log Out</button>
+              </ul>
+            </div>
+        </nav>
+        <div>
+            <div class="col-lg-10 col-10 ml-auto">
+                <p style="color:black; font-size:30px; font-weight:bolder;">Product and Category Data</p><br>
+            </div>
+            <div class="table-responsive col-lg-12 col-12">
+                <table border="2px" id="myTable" class="table">
+                    <thead style="font-size: 25px; font-family:DejaVu Sans Mono, monospace; background:rgb(255, 202, 132);">
+                        <tr height="50">
+                            <th>Id</th>
+                            <th>Product Category</th>
+                            <th>Product Name</th>
+                            <th>Product Description</th>
+                            <th>Product Image url</th>
+                            <th>Product Prize</th>
+                            <th>Product Offer</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 18px; font-family:DejaVu Sans Mono, monospace; background:rgb(255, 223, 223);">
+                        {% for product in product%}
+                        
+                        <tr height="30">
+                            <td>{{product.id}}</td>
+                            <td>{{product.product_category}}</td>
+                            <td>{{product.product_name}}</td>
+                            <td>{{product.product_description}}</td>
+                            <td>{{product.product_img}}</td>
+                            <td>{{product.product_price}}</td>
+                            <td>{{product.product_offer}}</td>
+                        </tr>
+                        
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                <div class="table-responsive col-lg-12 col-12">
+                    <table border="2px" id="myTable1" class="table">
+                        <thead style="font-size: 25px; font-family:DejaVu Sans Mono, monospace; background:rgb(255, 202, 132);">
+                            <tr height="50">
+                                <th>Id</th>
+                                <th>Category Name</th>
+                                <th>Category Description</th>
+                                <th>Category Image url</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 18px; font-family:DejaVu Sans Mono, monospace; background:rgb(255, 223, 223);">
+                            {% for category in category %}
+                            <tr height="30">
+                                <td>{{category.id}}</td>
+                                <td>{{category.category_name}}</td>
+                                <td>{{category.category_description}}</td>
+                                <td>{{category.category_image}}</td>
+                            </tr>
+                            
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+            
+            $('#myTable1').DataTable();
+            
+            $('#deleteupdate_product').click(function(){
+                window.location.replace('admin_catprod_crud')
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'user.css' %}" type="text/css" >
+    <title>Document</title>
+</head>
+<body>
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+            <div class=" image d-flex flex-column justify-content-center align-items-center">
+                <button class="btn btn-secondary">
+                    <img src="download.png" height="100" width="100" />
+                </button> 
+                <span class="name mt-3">{{user_details.first_name}} {{user_details.last_name}}</span> 
+                <span class="idd">{{user_details.email}}</span>
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2">
+                    <span class="idd1">{{user_details.username}}</span>
+                    <span><i class="fa fa-copy"></i></span> 
+                </div>
+            </div>
+            <div class="d-flex" style="margin-left: 80px;">
+                <button class="btn1 btn-dark" id="edit_profile">Edit Profile</button> 
+            </div>
+            <div style="display:none;" id="edit_fields">
+                <br>
+                <input type="text" class="form-control" id="update_firstname_input" placeholder="Update First Name">
+                <button type="button" class="btn-primary" style="margin-left: 80px;" id="update_firstname_button">Update First Name</button>
+                <input type="text" class="form-control" id="update_secondname_input" placeholder="Update Second Name" style="margin-top: 10px;">
+                <button type="button" class="btn-primary" style="margin-left: 70px;" id="update_secondname_button">Update Second Name</button>
+                <input type="text" class="form-control" id="update_email_input" placeholder="Update Email" style="margin-top: 10px;">
+                <button type="button" class="btn-primary" style="margin-left: 90px;" id="update_email_button">Update Email</button>
+            </div>
+            <div class=" px-2 rounded mt-4 date ">
+                <span class="join">{{user_details.date_joined}}</span>
+                <br>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>   
+<script>
+    $("#edit_profile").click(function(){
+        $("#edit_fields").show()
+    })
+    $('#update_firstname_button').click(function(){
+        
+        var update_firstname = $('#update_firstname_input').val()
+        var data = {
+          'csrfmiddlewaretoken':'{{csrf_token}}',
+          'update_firstname': update_firstname,
+        }
+        if(update_firstname == ''){
+          $('#warning').text('Update field cannot be empty')
+        }else{
+          $.ajax({
+            url:'/update_firstname',
+            method:'POST',
+            data:data,
+            dataType:'json',
+            success:function(data){
+              if(data.success == 'True'){
+                window.location.replace('user_acc')
+              }
+            }
+          })
+        }
+      })
+      $('#update_secondname_button').click(function(){
+        var update_secondname = $('#update_secondname_input').val()
+        var data = {
+          'csrfmiddlewaretoken':'{{csrf_token}}',
+          'update_secondname': update_secondname,
+        }
+        if(update_secondname == ''){
+          $('#warning').text('Update field cannot be empty')
+        }else{
+          $.ajax({
+            url:'/update_secondname',
+            method:'POST',
+            data:data,
+            dataType:'json',
+            success:function(data){
+              if(data.success == 'True'){
+                window.location.replace('user_acc')
+              }
+            }
+          })
+        }
+      })
+      $('#update_email_button').click(function(){
+        var update_email = $('#update_email_input').val()
+        var data = {
+          'csrfmiddlewaretoken':'{{csrf_token}}',
+          'update_email': update_email,
+        }
+        if(update_email == ''){
+          $('#warning').text('Update field cannot be empty')
+        }else{
+          $.ajax({
+            url:'/update_email',
+            method:'POST',
+            data:data,
+            dataType:'json',
+            success:function(data){
+              if(data.success == 'True'){
+                window.location.replace('user_acc')
+              }
+            }
+          })
+        }
+      })
+</script>
+</html>
