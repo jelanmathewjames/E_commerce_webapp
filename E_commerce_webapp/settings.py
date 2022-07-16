@@ -55,6 +55,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'E_commerce_webapp.urls'
 
+AUTH_USER_MODEL = 'login.EcomUser'
+AUTHENTICATION_BACKENDS = [
+    'login.backends.EmailPhoneAuthenticationBackend'
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -80,10 +85,10 @@ WSGI_APPLICATION = 'E_commerce_webapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'e_commerce',
-        'USER': 'postgres',
-        'PASSWORD': 'jelan',
-        'HOST': 'localhost'
+        'NAME' : 'dbnonsu4g3nh3r',
+        'USER': 'fjzgmwbrjuxuij',
+        'PASSWORD' : '3328c04b39f0d7b5ef7f2448eb0687dbe8c1535aa20f112636a693a85cbd5aee',
+        'HOST' : 'ec2-52-20-166-21.compute-1.amazonaws.com'
     }
 }
 
