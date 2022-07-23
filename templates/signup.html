@@ -28,7 +28,7 @@
               </ul>
             </div>
         </nav>
-        <div class="col-lg-4 col-10 mx-auto" style="margin-top:30px; border-width:thick; border-radius:30px; height:800px; background:rgb(203, 147, 255); color:white;">
+        <div class="col-lg-4 col-10 mx-auto" style="margin-top:30px; border-width:thick; border-radius:30px; height:auto; background:rgb(203, 147, 255); color:white;">
             <form>
                 {% csrf_token %}
                 <div class="col-lg-8 col-8 ml-auto" style="font-size:30px; font-weight:bolder; padding-top:10px">
@@ -39,34 +39,27 @@
                         <label id="warning"></label>
                     </div>
                     <div class="form-group col-lg-8 col-8 mx-auto">
-                        <label for="first_name">First Name</label>
-                        <input type="text" class="form-control" id="first_name" placeholder="First Name">
+                        <label for="name">Your Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="First name and last name">
                     </div>
                     <div class="form-group col-lg-8 col-8 mx-auto">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" class="form-control" id="last_name" placeholder="Last Name">
-                    </div>
-                    <div class="form-group col-lg-8 col-8 mx-auto">
-                        <label for="username">User Name</label>
-                        <input type="text" class="form-control" id="username" placeholder="User Name">
-                    </div>
-                    <div class="form-group col-lg-8 col-8 mx-auto">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email">
+                        <label for="username">Email or mobile number</label>
+                        <input type="email" class="form-control" id="username">
                     </div>
                     <div class="form-group col-lg-8 col-8 mx-auto">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Atleast 6 characters" autocomplete="on">
+                        <input type="password" class="form-control" id="password" placeholder="At least 6 characters" autocomplete="on">
                     </div>
                     <div class="form-group col-lg-8 col-8 mx-auto">
                         <label for="confirm_password">Re-enter Password</label>
                         <input type="password" class="form-control" id="confirm_password" autocomplete="on">
                     </div>
                     <div class="mx-auto col-lg-2 col-6"style="margin-top:30px">
-                        <button type="button" class="btn btn-primary" id="btn1">Submit</button>
+                        <button type="button" class="btn btn-primary" id="btn1">Continue</button>
                     </div>
                 </div>
               </form>
+              <br>
         </div>
         <br>
         <br>
@@ -77,31 +70,32 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function(){
+        var checker;
+       
+        $('#password').click(()=>{
+          checker = ValidatePhoneEmail(parseInt($('#username').val()))
+          $('#btn1').text('Verify '+checker)
+          
+        })
         $('#log').click(function(){
             window.location.replace('log_in')
         })
         $('#btn1').click(function(){
-            var first_name = $('#first_name').val()
-            var last_name = $('#last_name').val()
-            var email = $('#email').val()
+            var name = $('#name').val()
             var username = $('#username').val()
             var password1 = $('#password').val()
             var password2 = $('#confirm_password').val()
             var data = {
               'csrfmiddlewaretoken':'{{csrf_token}}',
-              'first_name': first_name,
-              'last_name': last_name,
-              'email': email,
-              'username': username,
+              'name':name,
+              'username':username,
               'password1': password1,
-              'password2': password2
+              'password2': password2,
+              'checker':checker
             }
-            if(first_name == ''){
+            if(name == ''){
               var alert = "(!) Name Field Cannot be Empty (!)"
               $('#warning').text(alert) 
-            }else if(last_name == ''){
-              var alert = "(!) Name Field Cannot be Empty (!)"
-              $('#warning').text(alert)
             }else if(email == ''){
               var alert = "(!) Email Field cannot be Empty (!)"
               $('#warning').text(alert)
@@ -140,6 +134,14 @@
               })
             }
         })
+        function ValidatePhoneEmail(input) {
+              if (Number.isNaN(input)){
+                return 'email'
+              }
+              else{
+                return 'mobile number'
+              }
+        }
     })
 </script>
 </body>

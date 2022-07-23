@@ -39,8 +39,8 @@
                         <label id="warning"></label>
                     </div>
                     <div class="form-group col-lg-8 col-8 mx-auto">
-                        <label for="username">User Name</label>
-                        <input type="text" class="form-control" id="username" placeholder="User Name">
+                        <label for="username">Email or phone number</label>
+                        <input type="text" class="form-control" id="username" placeholder="Email or phone number">
                     </div>
                     <div class="form-group col-lg-8 col-8 mx-auto">
                         <label for="password">Password</label>
@@ -63,30 +63,33 @@
         })
         $('#btn1').click(function(){
             var username = $('#username').val()
+            var typecheck = Number(username)
             var password = $('#password').val()
             var data = {
               'csrfmiddlewaretoken':'{{csrf_token}}',
               'username': username,
               'password': password,
+              'typecheck':typecheck
             }
             if(username == ''){
-              var alert = 'User Name field cannot be empty'
+              var alert = 'Email or phone number field cannot be empty'
               $('#warning').text(alert)
             }else if(password == ''){
               var alert = 'Password field cannot be empty'
               $('#warning').text(alert)
             }else{
               $.ajax({
-                url:'/log_in',
+                url:'login',
                 method:'POST',
                 data:data,
                 dataType:'json',
                 success:function(data){
-                  if(data.success){
-                    window.location.replace('/login_user')
-                  }else{
-                    var alert = 'User is Not Authenticated'
-                    $('#warning').text(alert)
+                  if(data.success == 'True'){
+                    window.location.replace('/usersignup/signup')
+                  }else if(data.success == 'usernotfound'){
+                    $('#warning').text('User not founded')
+                  }else if(data.success == 'invalid'){
+                    $('#warning').text('Invalid user credentials')
                   }
                 }
               })
